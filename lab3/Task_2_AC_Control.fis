@@ -1,0 +1,57 @@
+[System]
+Name='Task_2_AC_Control'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=15
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Temperature'
+Range=[10 40]
+NumMFs=5
+MF1='VeryCold':'trapmf',[10 10 15 18]
+MF2='Cold':'trimf',[15 20 25]
+MF3='Normal':'trimf',[22 25 28]
+MF4='Warm':'trimf',[25 30 35]
+MF5='VeryWarm':'trapmf',[32 35 40 40]
+
+[Input2]
+Name='TempChangeRate'
+Range=[-5 5]
+NumMFs=3
+MF1='Negative':'trapmf',[-5 -5 -1 0]
+MF2='Zero':'trimf',[-0.5 0 0.5]
+MF3='Positive':'trapmf',[0 1 5 5]
+
+[Output1]
+Name='AC_Regulator'
+Range=[-90 90]
+NumMFs=5
+MF1='Big_Left':'trimf',[-120 -90 -45]
+MF2='Small_Left':'trimf',[-60 -30 0]
+MF3='Off':'trimf',[-15 0 15]
+MF4='Small_Right':'trimf',[0 30 60]
+MF5='Big_Right':'trimf',[45 90 120]
+
+[Rules]
+5 3, 1 (1) : 1
+5 1, 2 (1) : 1
+4 3, 1 (1) : 1
+4 1, 3 (1) : 1
+1 1, 5 (1) : 1
+1 3, 4 (1) : 1
+2 1, 5 (1) : 1
+2 3, 3 (1) : 1
+5 2, 1 (1) : 1
+4 2, 2 (1) : 1
+1 2, 5 (1) : 1
+2 2, 4 (1) : 1
+3 3, 2 (1) : 1
+3 1, 4 (1) : 1
+3 2, 3 (1) : 1
